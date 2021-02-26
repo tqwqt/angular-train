@@ -1,6 +1,7 @@
 <div class="Book">
   <h2>Name: {{name}}</h2>
-  <h3>Category: {{category}}</h2>
+  <h3>Category: {{category}}</h3>
   <p>{{description}}</p>
   <p>Price: {{price}}</p>
+  <button [disabled]="!isAvailable" (click)="buyBook()">Buy</button>
 </div>

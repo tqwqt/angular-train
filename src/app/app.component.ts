@@ -24,7 +24,7 @@ export class AppComponent {
       price: 45,
       category: BookCategories.Fantasy,
       createDate: 1865,
-      isAvailable: true,
+      isAvailable: false,
     },
     {
       name: 'Frankenstein',
@@ -56,5 +56,9 @@ export class AppComponent {
       isAvailable: true,
     },
   ];
+
+  public onBookBuy(bookName: string): void {
+    console.log(bookName)
+  }
 
 }

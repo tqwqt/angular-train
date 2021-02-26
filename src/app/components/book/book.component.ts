@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { BookCategories, IBook } from 'src/app/interfaces';
 
 @Component({
@@ -8,6 +8,7 @@ import { BookCategories, IBook } from 'src/app/interfaces';
 })
 export class BookComponent implements OnInit, IBook {
   @Input() public book: IBook;
+  @Output() buy = new EventEmitter();
   public name: string;
   public description: string;
   public price: number;
@@ -19,12 +20,17 @@ export class BookComponent implements OnInit, IBook {
   }
 
   ngOnInit(): void {
+    console.log(this.book)
     this.name = this.book.name;
     this.description = this.book.description;
     this.price = this.book.price;
     this.category = this.book.category;
     this.createDate = this.book.createDate;
     this.isAvailable = this.book.isAvailable;
+  }
+
+  public buyBook(): void {
+    this.buy.emit(this.book.name);
   }
 
 }
