@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BookCategories, IBook } from './interfaces';
+import { BookCategories, IBook, ICart } from './interfaces';
 
 @Component({
   selector: 'app-root',
@@ -56,9 +56,29 @@ export class AppComponent {
       isAvailable: true,
     },
   ];
+  public cart: ICart = {
+    items: [],
+  };
 
   public onBookBuy(bookName: string): void {
-    console.log(bookName)
+    let bookIndex = -1;
+    const bookInCart = this.cart.items.find((cartItem, index) => {
+        const isRightBook = cartItem.book.name === bookName;
+        if (isRightBook) bookIndex = index;
+        return isRightBook;
+      }
+    );
+    if (bookIndex !== -1) {
+      this.cart.items[bookIndex] = { ...bookInCart, amount: bookInCart.amount + 1};
+    } else {
+      const book = this.books.find(book => book.name === bookName);
+      const cartItem = {
+        book,
+        amount: 1,
+      };
+      this.cart.items.push(cartItem);
+    }
+    this.cart.items.forEach(item => console.log(item.book, item.amount))
   }
 
 }

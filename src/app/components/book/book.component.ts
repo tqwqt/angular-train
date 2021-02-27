@@ -1,10 +1,11 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { BookCategories, IBook } from 'src/app/interfaces';
 
 @Component({
   selector: 'app-book',
   templateUrl: './book.component.html',
-  styleUrls: ['./book.component.sass']
+  styleUrls: ['./book.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookComponent implements OnInit, IBook {
   @Input() public book: IBook;
