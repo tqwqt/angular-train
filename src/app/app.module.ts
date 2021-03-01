@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FirstComponent } from './components/first/first.component';
 import { BookComponent } from './components/book/book.component';
 import { CartComponent } from './components/cart/cart.component';
 import { CartItemComponent } from './components/cart/cart-item/cart-item.component';
@@ -11,7 +10,6 @@ import { CartItemComponent } from './components/cart/cart-item/cart-item.compone
 @NgModule({
   declarations: [
     AppComponent,
-    FirstComponent,
     BookComponent,
     CartComponent,
     CartItemComponent

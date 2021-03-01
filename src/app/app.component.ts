@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { BookCategories, IBook, ICart } from './interfaces';
 
 @Component({
@@ -6,7 +6,8 @@ import { BookCategories, IBook, ICart } from './interfaces';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
+  @ViewChild('appTitle') title: ElementRef;
   public books: IBook[] = [
     {
       name: 'Poirot Investigates',
@@ -60,6 +61,11 @@ export class AppComponent {
     items: [],
   };
 
+  public ngAfterViewInit(): void {
+    this.title.nativeElement.innerText = 'New Title';
+    console.log('title:', this.title)
+  }
+
   public onBookBuy(bookName: string): void {
     let bookIndex = -1;
     const bookInCart = this.cart.items.find((cartItem, index) => {
@@ -80,5 +86,6 @@ export class AppComponent {
     }
     this.cart.items.forEach(item => console.log(item.book, item.amount))
   }
+
 
 }
