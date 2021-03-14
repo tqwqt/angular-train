@@ -1,37 +1,33 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component, Inject, InjectionToken, Input, OnInit,
+} from '@angular/core';
 import { ICart, ICartItem } from 'src/app/interfaces';
-
+import {
+  CartService, ConstantsService, GeneratorService, IConstantsService,
+} from 'src/app/services';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.sass']
+  styleUrls: ['./cart.component.sass'],
 })
 export class CartComponent implements OnInit {
-  @Input() cart: ICart;
-  constructor() { }
+  public items: ICartItem[] = [];
+
+  constructor(private _cartService: CartService) {
+    this.items = _cartService.getItems();
+  }
 
   ngOnInit(): void {
   }
 
   handleDelete(cartItem: ICartItem): void {
-    const index = this.cart.items.findIndex(item => item.book.name === cartItem.book.name);
-    if (cartItem.amount < 2) {
-      this.cart.items = this.cart.items.filter(item => item.book.name !== cartItem.book.name);
-      return;
+    const result = this._cartService.decreaseQuantity(cartItem);
+    if (result.isSucceed && result.wasLastItem) {
+      this.items = this._cartService.getItems();
     }
-    this.cart.items[index] = {
-      ...cartItem,
-      amount: cartItem.amount -1,
-    };
   }
 
   handleAdd(cartItem: ICartItem): void {
-    const index = this.cart.items.findIndex(item => item.book.name === cartItem.book.name);
-    this.cart.items[index] = {
-      ...cartItem,
-      amount: cartItem.amount + 1,
-    }
-
+    this._cartService.increaseQuantity(cartItem);
   }
-
 }

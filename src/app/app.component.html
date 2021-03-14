@@ -3,5 +3,6 @@
   <div class="App__Books">
     <app-book *ngFor="let book of books" [book]="book" (buy)="onBookBuy($event)"></app-book>
   </div>
-  <app-cart [cart]="cart"></app-cart>
+  <app-cart></app-cart>
+  <app-about></app-about>
 </div>
